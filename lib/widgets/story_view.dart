@@ -125,7 +125,7 @@ class StoryItem {
               fit: imageFit,
               requestHeaders: requestHeaders,
             ),
-            SafeArea(
+            delete != null ? SafeArea(
               child: Container(
                 alignment: Alignment.topRight,
                 width: double.infinity,
@@ -140,7 +140,7 @@ class StoryItem {
                     icon: Icon(EvaIcons.trash2Outline, color: Colors.white),
                     onPressed: delete),
               ),
-            ),
+            ) : null,
             SafeArea(
               child: Align(
                 alignment: Alignment.bottomCenter,
@@ -180,6 +180,7 @@ class StoryItem {
     @required String url,
     @required Text caption,
     @required StoryController controller,
+    @required VoidCallback delete,
     BoxFit imageFit = BoxFit.cover,
     Map<String, dynamic> requestHeaders,
     bool shown = false,
@@ -201,7 +202,7 @@ class StoryItem {
                   fit: imageFit,
                   requestHeaders: requestHeaders,
                 ),
-                SafeArea(
+                delete != null ? SafeArea(
                   child: Container(
                     alignment: Alignment.topRight,
                     width: double.infinity,
@@ -216,7 +217,7 @@ class StoryItem {
                         icon: Icon(EvaIcons.trash2Outline, color: Colors.white),
                         onPressed: delete),
                   ),
-                ),
+                ) : null,
                 Container(
                   margin: EdgeInsets.only(bottom: 16),
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
@@ -247,6 +248,7 @@ class StoryItem {
   factory StoryItem.pageVideo(
     String url, {
     @required StoryController controller,
+        @required VoidCallback delete,
     Duration duration,
     BoxFit imageFit = BoxFit.fitWidth,
     String caption,
@@ -263,7 +265,7 @@ class StoryItem {
                 controller: controller,
                 requestHeaders: requestHeaders,
               ),
-              SafeArea(
+              delete != null ? SafeArea(
                 child: Container(
                   alignment: Alignment.topRight,
                   width: double.infinity,
@@ -278,7 +280,7 @@ class StoryItem {
                       icon: Icon(EvaIcons.trash2Outline, color: Colors.white),
                       onPressed: delete),
                 ),
-              ),
+              ) : null,
               SafeArea(
                 child: Align(
                   alignment: Alignment.bottomCenter,
