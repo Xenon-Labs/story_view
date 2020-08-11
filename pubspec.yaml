@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_cache_manager: ^1.2.2
-  rxdart: ^0.24.0
+  rxdart: ^0.23.1
   video_player: ^0.10.9+1
   eva_icons_flutter: ^1.0.4
 
