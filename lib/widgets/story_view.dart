@@ -151,7 +151,6 @@ class StoryItem {
                     bottom: 24,
                   ),
                   padding: EdgeInsets.symmetric(
-                    horizontal: 24,
                     vertical: 8,
                   ),
                   color: caption != null ? Colors.black54 : Colors.transparent,
