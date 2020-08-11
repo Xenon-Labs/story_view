@@ -156,7 +156,6 @@ class _MoreStoriesState extends State<MoreStories> {
           StoryItem.text(
             title: "I guess you'd love to see more of our food. That's great.",
             backgroundColor: Colors.blue,
-            
           ),
           StoryItem.text(
             title: "Nice!\n\nTap to continue.",
@@ -167,25 +166,26 @@ class _MoreStoriesState extends State<MoreStories> {
             ),
           ),
           StoryItem.pageImage(
-            url:
-                "https://image.ibb.co/cU4WGx/Omotuo-Groundnut-Soup-braperucci-com-1.jpg",
-            caption: "Still sampling",
-            controller: storyController,
-          ),
+              url:
+                  "https://image.ibb.co/cU4WGx/Omotuo-Groundnut-Soup-braperucci-com-1.jpg",
+              caption: "Still sampling",
+              controller: storyController,
+              delete: () => {}),
           StoryItem.pageImage(
               url: "https://media.giphy.com/media/5GoVLqeAOo6PK/giphy.gif",
               caption: "Working with gifs",
-              controller: storyController),
+              controller: storyController,
+              delete: () => {}),
           StoryItem.pageImage(
-            url: "https://media.giphy.com/media/XcA8krYsrEAYXKf4UQ/giphy.gif",
-            caption: "Hello, from the other side",
-            controller: storyController,
-          ),
+              url: "https://media.giphy.com/media/XcA8krYsrEAYXKf4UQ/giphy.gif",
+              caption: "Hello, from the other side",
+              controller: storyController,
+              delete: () => {}),
           StoryItem.pageImage(
-            url: "https://media.giphy.com/media/XcA8krYsrEAYXKf4UQ/giphy.gif",
-            caption: "Hello, from the other side2",
-            controller: storyController,
-          ),
+              url: "https://media.giphy.com/media/XcA8krYsrEAYXKf4UQ/giphy.gif",
+              caption: "Hello, from the other side2",
+              controller: storyController,
+              delete: () => {}),
         ],
         onStoryShow: (s) {
           print("Showing a story");

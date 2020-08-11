@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 import 'dart:async';
 
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'story_video.dart';
 import 'story_image.dart';
@@ -106,6 +107,7 @@ class StoryItem {
   factory StoryItem.pageImage({
     @required String url,
     @required StoryController controller,
+    @required VoidCallback delete,
     BoxFit imageFit = BoxFit.fitWidth,
     String caption,
     bool shown = false,
@@ -122,6 +124,24 @@ class StoryItem {
               controller: controller,
               fit: imageFit,
               requestHeaders: requestHeaders,
+            ),
+            SafeArea(
+              child: Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    width: double.infinity,
+                    margin: EdgeInsets.only(
+                      bottom: 24,
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 8,
+                    ),
+                    color: Colors.black.withOpacity(0.5),
+                    child: IconButton(
+                        icon: Icon(EvaIcons.trash2Outline, color: Colors.white),
+                        onPressed: delete),
+                  )),
             ),
             SafeArea(
               child: Align(
