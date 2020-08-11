@@ -131,11 +131,10 @@ class StoryItem {
                   child: Container(
                     width: double.infinity,
                     margin: EdgeInsets.only(
-                      bottom: 24,
+                      bottom: 12,
                     ),
                     padding: EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 8,
+                      vertical: 4,
                     ),
                     color: Colors.black.withOpacity(0.5),
                     child: IconButton(
