@@ -126,21 +126,20 @@ class StoryItem {
               requestHeaders: requestHeaders,
             ),
             SafeArea(
-              child: Align(
-                  alignment: Alignment.topRight,
-                  child: Container(
-                    width: double.infinity,
-                    margin: EdgeInsets.only(
-                      bottom: 12,
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      vertical: 4,
-                    ),
-                    color: Colors.black.withOpacity(0.5),
-                    child: IconButton(
-                        icon: Icon(EvaIcons.trash2Outline, color: Colors.white),
-                        onPressed: delete),
-                  )),
+              child: Container(
+                alignment: Alignment.topRight,
+                width: double.infinity,
+                margin: EdgeInsets.only(
+                  top: 12,
+                ),
+                padding: EdgeInsets.symmetric(
+                  vertical: 8,
+                ),
+                color: Colors.black.withOpacity(0.5),
+                child: IconButton(
+                    icon: Icon(EvaIcons.trash2Outline, color: Colors.white),
+                    onPressed: delete),
+              ),
             ),
             SafeArea(
               child: Align(
@@ -202,6 +201,22 @@ class StoryItem {
                   fit: imageFit,
                   requestHeaders: requestHeaders,
                 ),
+                SafeArea(
+                  child: Container(
+                    alignment: Alignment.topRight,
+                    width: double.infinity,
+                    margin: EdgeInsets.only(
+                      top: 12,
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      vertical: 8,
+                    ),
+                    color: Colors.black.withOpacity(0.5),
+                    child: IconButton(
+                        icon: Icon(EvaIcons.trash2Outline, color: Colors.white),
+                        onPressed: delete),
+                  ),
+                ),
                 Container(
                   margin: EdgeInsets.only(bottom: 16),
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
@@ -247,6 +262,22 @@ class StoryItem {
                 url,
                 controller: controller,
                 requestHeaders: requestHeaders,
+              ),
+              SafeArea(
+                child: Container(
+                  alignment: Alignment.topRight,
+                  width: double.infinity,
+                  margin: EdgeInsets.only(
+                    top: 12,
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 8,
+                  ),
+                  color: Colors.black.withOpacity(0.5),
+                  child: IconButton(
+                      icon: Icon(EvaIcons.trash2Outline, color: Colors.white),
+                      onPressed: delete),
+                ),
               ),
               SafeArea(
                 child: Align(
