@@ -138,7 +138,7 @@ class StoryItem {
                 color: Colors.black.withOpacity(0.5),
                 child: IconButton(
                     icon: Icon(EvaIcons.trashOutline, color: Colors.white),
-                    onPressed: () => delete()),
+                    onPressed: delete),
               ),
             ) : null,
             SafeArea(
@@ -215,7 +215,7 @@ class StoryItem {
                     color: Colors.black.withOpacity(0.5),
                     child: IconButton(
                         icon: Icon(EvaIcons.trashOutline, color: Colors.white),
-                        onPressed: () => delete()),
+                        onPressed: delete),
                   ),
                 ) : null,
                 Container(
@@ -278,7 +278,7 @@ class StoryItem {
                   color: Colors.black.withOpacity(0.5),
                   child: IconButton(
                       icon: Icon(EvaIcons.trashOutline, color: Colors.white),
-                      onPressed: () => delete()),
+                      onPressed: delete),
                 ),
               ) : null,
               SafeArea(
