@@ -625,23 +625,19 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
         backgroundColor: Colors.black,
         automaticallyImplyLeading: false,
         actions: <Widget>[
-          PopupMenuButton<String>(
-            onSelected: handleItemSelection,
-            itemBuilder: (BuildContext context) {
-              return {'Delete'}.map((String choice) {
-                return PopupMenuItem<String>(
-                  value: 'Delete',
-                  child: ListTile(
-                    leading: IconButton(
-                      icon: Icon(EvaIcons.moreVerticalOutline,
-                        color: Colors.white),
-                      onPressed: () {},
-                    ),
-                    title: Text('Delete'),
-                  ),
-                );
-              }).toList();
-            },
+          ListTileTheme(
+            iconColor: Colors.white,
+            child: PopupMenuButton<String>(
+              onSelected: handleItemSelection,
+              itemBuilder: (BuildContext context) {
+                return {'Delete'}.map((String choice) {
+                  return PopupMenuItem<String>(
+                    value: choice,
+                    child: Text(choice),
+                  );
+                }).toList();
+              },
+            ),
           ),
         ],
       ),
