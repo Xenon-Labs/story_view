@@ -107,7 +107,6 @@ class StoryItem {
   factory StoryItem.pageImage({
     @required String url,
     @required StoryController controller,
-    @required VoidCallback delete,
     BoxFit imageFit = BoxFit.fitWidth,
     String caption,
     bool shown = false,
@@ -125,22 +124,6 @@ class StoryItem {
               fit: imageFit,
               requestHeaders: requestHeaders,
             ),
-            delete != null ? SafeArea(
-              child: Container(
-                alignment: Alignment.topRight,
-                width: double.infinity,
-                margin: EdgeInsets.only(
-                  top: 12,
-                ),
-                padding: EdgeInsets.symmetric(
-                  vertical: 8,
-                ),
-                color: Colors.black.withOpacity(0.5),
-                child: IconButton(
-                    icon: Icon(EvaIcons.trashOutline, color: Colors.white),
-                    onPressed: delete),
-              ),
-            ) : null,
             SafeArea(
               child: Align(
                 alignment: Alignment.bottomCenter,
@@ -180,7 +163,6 @@ class StoryItem {
     @required String url,
     @required Text caption,
     @required StoryController controller,
-    @required VoidCallback delete,
     BoxFit imageFit = BoxFit.cover,
     Map<String, dynamic> requestHeaders,
     bool shown = false,
@@ -202,22 +184,6 @@ class StoryItem {
                   fit: imageFit,
                   requestHeaders: requestHeaders,
                 ),
-                delete != null ? SafeArea(
-                  child: Container(
-                    alignment: Alignment.topRight,
-                    width: double.infinity,
-                    margin: EdgeInsets.only(
-                      top: 12,
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      vertical: 8,
-                    ),
-                    color: Colors.black.withOpacity(0.5),
-                    child: IconButton(
-                        icon: Icon(EvaIcons.trashOutline, color: Colors.white),
-                        onPressed: delete),
-                  ),
-                ) : null,
                 Container(
                   margin: EdgeInsets.only(bottom: 16),
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
@@ -248,7 +214,6 @@ class StoryItem {
   factory StoryItem.pageVideo(
     String url, {
     @required StoryController controller,
-        @required VoidCallback delete,
     Duration duration,
     BoxFit imageFit = BoxFit.fitWidth,
     String caption,
@@ -265,22 +230,6 @@ class StoryItem {
                 controller: controller,
                 requestHeaders: requestHeaders,
               ),
-              delete != null ? SafeArea(
-                child: Container(
-                  alignment: Alignment.topRight,
-                  width: double.infinity,
-                  margin: EdgeInsets.only(
-                    top: 12,
-                  ),
-                  padding: EdgeInsets.symmetric(
-                    vertical: 8,
-                  ),
-                  color: Colors.black.withOpacity(0.5),
-                  child: IconButton(
-                      icon: Icon(EvaIcons.trashOutline, color: Colors.white),
-                      onPressed: delete),
-                ),
-              ) : null,
               SafeArea(
                 child: Align(
                   alignment: Alignment.bottomCenter,
