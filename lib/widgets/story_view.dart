@@ -23,6 +23,8 @@ class StoryItem {
   /// amount of time greater than 0 milliseconds.
   final Duration duration;
 
+  final String id;
+
   /// Has this page been shown already? This is used to indicate that the page
   /// has been displayed. If some pages are supposed to be skipped in a story,
   /// mark them as shown `shown = true`.
@@ -40,6 +42,7 @@ class StoryItem {
     this.view, {
     this.duration,
     this.shown = false,
+    this.id,
   }) : assert(duration != null, "[duration] should not be null");
 
   /// Short hand to create text-only page.
@@ -97,6 +100,7 @@ class StoryItem {
         ),
         //color: backgroundColor,
       ),
+      id: id,
       shown: shown,
       duration: duration ?? Duration(seconds: 3),
     );
@@ -104,7 +108,8 @@ class StoryItem {
 
   /// Factory constructor for page images. [controller] should be same instance as
   /// one passed to the `StoryView`
-  factory StoryItem.pageImage({
+  factory StoryItem.pageImage(
+    String id, {
     @required String url,
     @required StoryController controller,
     BoxFit imageFit = BoxFit.fitWidth,
@@ -152,6 +157,7 @@ class StoryItem {
           ],
         ),
       ),
+      id: id,
       shown: shown,
       duration: duration ?? Duration(seconds: 3),
     );
@@ -159,7 +165,8 @@ class StoryItem {
 
   /// Shorthand for creating inline image. [controller] should be same instance as
   /// one passed to the `StoryView`
-  factory StoryItem.inlineImage({
+  factory StoryItem.inlineImage(
+    String id, {
     @required String url,
     @required Text caption,
     @required StoryController controller,
@@ -204,6 +211,7 @@ class StoryItem {
           bottom: Radius.circular(roundedBottom ? 8 : 0),
         ),
       ),
+      id: id,
       shown: shown,
       duration: duration ?? Duration(seconds: 3),
     );
@@ -212,6 +220,7 @@ class StoryItem {
   /// Shorthand for creating page video. [controller] should be same instance as
   /// one passed to the `StoryView`
   factory StoryItem.pageVideo(
+    String id,
     String url, {
     @required StoryController controller,
     Duration duration,
@@ -252,6 +261,7 @@ class StoryItem {
             ],
           ),
         ),
+        id: id,
         shown: shown,
         duration: duration ?? Duration(seconds: 10));
   }
@@ -431,6 +441,9 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
   VerticalDragInfo verticalDragInfo;
 
   StoryItem get _currentStory =>
+      widget.storyItems.firstWhere((it) => !it.shown, orElse: () => null);
+
+  StoryItem get _currentID =>
       widget.storyItems.firstWhere((it) => !it.shown, orElse: () => null);
 
   Widget get _currentView => widget.storyItems
@@ -625,20 +638,27 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
         backgroundColor: Colors.black,
         automaticallyImplyLeading: false,
         actions: <Widget>[
-          ListTileTheme(
-            iconColor: Colors.white,
-            child: PopupMenuButton<String>(
-              onSelected: handleItemSelection,
-              itemBuilder: (BuildContext context) {
-                return {'Delete'}.map((String choice) {
-                  return PopupMenuItem<String>(
-                    value: choice,
-                    child: Text(choice),
-                  );
-                }).toList();
-              },
+          Theme(
+            data: Theme.of(context).copyWith(
+              cardColor: Colors.white,
+              iconTheme: IconThemeData(color: Colors.white),
             ),
-          ),
+            child: ListTileTheme(
+              iconColor: Colors.white,
+              child: PopupMenuButton<String>(
+                onSelected: handleItemSelection,
+                itemBuilder: (BuildContext context) {
+                  return {'Delete'}.map((String choice) {
+                    return PopupMenuItem<String>(
+                      height: 10.0,
+                      value: choice,
+                      child: Text(choice),
+                    );
+                  }).toList();
+                },
+              ),
+            ),
+          )
         ],
       ),
       body: Container(

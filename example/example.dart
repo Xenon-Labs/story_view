@@ -169,23 +169,19 @@ class _MoreStoriesState extends State<MoreStories> {
               url:
                   "https://image.ibb.co/cU4WGx/Omotuo-Groundnut-Soup-braperucci-com-1.jpg",
               caption: "Still sampling",
-              controller: storyController,
-              delete: () => {}),
+              controller: storyController),
           StoryItem.pageImage(
               url: "https://media.giphy.com/media/5GoVLqeAOo6PK/giphy.gif",
               caption: "Working with gifs",
-              controller: storyController,
-              delete: () => {}),
+              controller: storyController),
           StoryItem.pageImage(
               url: "https://media.giphy.com/media/XcA8krYsrEAYXKf4UQ/giphy.gif",
               caption: "Hello, from the other side",
-              controller: storyController,
-              delete: () => {}),
+              controller: storyController),
           StoryItem.pageImage(
               url: "https://media.giphy.com/media/XcA8krYsrEAYXKf4UQ/giphy.gif",
               caption: "Hello, from the other side2",
-              controller: storyController,
-              delete: () => {}),
+              controller: storyController),
         ],
         onStoryShow: (s) {
           print("Showing a story");
