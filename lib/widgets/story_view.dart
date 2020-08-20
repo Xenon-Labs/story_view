@@ -389,6 +389,7 @@ class StoryView extends StatefulWidget {
   /// Callback for when a story is currently being shown.
   final ValueChanged<StoryItem> onStoryShow;
 
+  /// Callback for when a story needs to be deleted
   final ValueChanged<StoryItem> onStoryDelete;
 
   /// Where the progress indicator should be placed.
@@ -396,6 +397,9 @@ class StoryView extends StatefulWidget {
 
   /// Should the story be repeated forever?
   final bool repeat;
+
+  /// Is the story owned by the current user?
+  final bool own;
 
   /// If you would like to display the story as full-page, then set this to
   /// `false`. But in case you would display this as part of a page (eg. in
@@ -408,6 +412,7 @@ class StoryView extends StatefulWidget {
   StoryView({
     @required this.storyItems,
     @required this.controller,
+    @required this.own,
     this.onComplete,
     this.onStoryShow,
     this.onStoryDelete,
@@ -625,7 +630,7 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
   }
 
   void handleItemSelection(String choice) {
-    if (choice == 'delete') {
+    if (choice == 'Delete') {
       widget.onStoryDelete(_currentStory);
     }
   }
@@ -633,7 +638,7 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: widget.own ? AppBar(
         backgroundColor: Colors.black,
         automaticallyImplyLeading: false,
         actions: <Widget>[
@@ -649,7 +654,7 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
                 itemBuilder: (BuildContext context) {
                   return {'Delete'}.map((String choice) {
                     return PopupMenuItem<String>(
-                      height: 10.0,
+                      height: 15.0,
                       value: choice,
                       child: Text(choice),
                     );
@@ -659,7 +664,7 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
             ),
           )
         ],
-      ),
+      ) : null,
       body: Container(
         color: Colors.white,
         child: Stack(
