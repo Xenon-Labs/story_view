@@ -111,7 +111,7 @@ class StoryItem {
     String id, {
     @required String url,
     @required StoryController controller,
-    BoxFit imageFit = BoxFit.fitWidth,
+    BoxFit imageFit = BoxFit.fitHeight,
     String caption,
     bool shown = false,
     Map<String, dynamic> requestHeaders,
@@ -638,33 +638,35 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: widget.own ? AppBar(
-        backgroundColor: Colors.black,
-        automaticallyImplyLeading: false,
-        actions: <Widget>[
-          Theme(
-            data: Theme.of(context).copyWith(
-              cardColor: Colors.white,
-              iconTheme: IconThemeData(color: Colors.white),
-            ),
-            child: ListTileTheme(
-              iconColor: Colors.white,
-              child: PopupMenuButton<String>(
-                onSelected: handleItemSelection,
-                itemBuilder: (BuildContext context) {
-                  return {'Delete'}.map((String choice) {
-                    return PopupMenuItem<String>(
-                      height: 15.0,
-                      value: choice,
-                      child: Text(choice),
-                    );
-                  }).toList();
-                },
-              ),
-            ),
-          )
-        ],
-      ) : null,
+      appBar: widget.own
+          ? AppBar(
+              backgroundColor: Colors.black,
+              automaticallyImplyLeading: false,
+              actions: <Widget>[
+                Theme(
+                  data: Theme.of(context).copyWith(
+                    cardColor: Colors.white,
+                    iconTheme: IconThemeData(color: Colors.white),
+                  ),
+                  child: ListTileTheme(
+                    iconColor: Colors.white,
+                    child: PopupMenuButton<String>(
+                      onSelected: handleItemSelection,
+                      itemBuilder: (BuildContext context) {
+                        return {'Delete'}.map((String choice) {
+                          return PopupMenuItem<String>(
+                            height: 15.0,
+                            value: choice,
+                            child: Text(choice),
+                          );
+                        }).toList();
+                      },
+                    ),
+                  ),
+                )
+              ],
+            )
+          : null,
       body: Container(
         color: Colors.white,
         child: Stack(
