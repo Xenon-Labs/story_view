@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:story_view/widgets/circularProgressDialog.dart';
 import 'story_video.dart';
 import 'story_image.dart';
 
@@ -16,6 +17,8 @@ enum ProgressPosition { top, bottom }
 /// This is used to specify the height of the progress indicator. Inline stories
 /// should use [small]
 enum IndicatorHeight { small, large }
+
+typedef StoryItemCallback = Future Function(StoryItem s);
 
 /// This is a representation of a story item (or page).
 class StoryItem {
@@ -390,7 +393,10 @@ class StoryView extends StatefulWidget {
   final ValueChanged<StoryItem> onStoryShow;
 
   /// Callback for when a story needs to be deleted
-  final ValueChanged<StoryItem> onStoryDelete;
+  final StoryItemCallback onStoryDelete;
+
+  /// Callback for when a story needs to be saved
+  final StoryItemCallback onStorySave;
 
   /// Where the progress indicator should be placed.
   final ProgressPosition progressPosition;
@@ -416,6 +422,7 @@ class StoryView extends StatefulWidget {
     this.onComplete,
     this.onStoryShow,
     this.onStoryDelete,
+    this.onStorySave,
     this.progressPosition = ProgressPosition.top,
     this.repeat = false,
     this.inline = false,
@@ -631,7 +638,29 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
 
   void handleItemSelection(String choice) {
     if (choice == 'Delete') {
-      widget.onStoryDelete(_currentStory);
+      CircularProgressDialog(context, () async {
+        _holdNext(); // then pause animation
+        this._animationController?.stop(canceled: false);
+        widget.onStoryDelete(_currentStory).then((dynamic success) {
+          if (success) {
+            Navigator.of(context).pop();
+            _removeNextHold();
+            _goForward();
+          }
+        });
+      });
+    } else if (choice == 'Save') {
+      CircularProgressDialog(context, () async {
+        _holdNext(); // then pause animation
+        this._animationController?.stop(canceled: false);
+        widget.onStorySave(_currentStory).then((dynamic success) {
+          if (success) {
+            Navigator.of(context).pop();
+            _removeNextHold();
+            _goForward();
+          }
+        });
+      });
     }
   }
 
@@ -653,7 +682,7 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
                     child: PopupMenuButton<String>(
                       onSelected: handleItemSelection,
                       itemBuilder: (BuildContext context) {
-                        return {'Delete'}.map((String choice) {
+                        return {'Delete', 'Save'}.map((String choice) {
                           return PopupMenuItem<String>(
                             height: 15.0,
                             value: choice,
