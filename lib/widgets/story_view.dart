@@ -678,7 +678,9 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
                 iconTheme: IconThemeData(color: Colors.white),
               ),
               child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: widget.own
+                      ? MainAxisAlignment.spaceBetween
+                      : MainAxisAlignment.start,
                   children: [
                     Container(
                       margin: EdgeInsets.all(5.0),
@@ -688,11 +690,12 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
                             Padding(
                               padding: const EdgeInsets.all(2.0),
                               child: CircularImage(widget.profileImage,
-                                  height: 15, width: 15, iconSize: 12),
+                                  height: 25, width: 25, iconSize: 15),
                             ),
                             Text(
                               widget.displayName,
-                              style: TextStyle(color: Colors.white, fontSize: 12),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
                             )
                           ]),
                     ),
