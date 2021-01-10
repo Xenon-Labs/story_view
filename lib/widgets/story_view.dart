@@ -701,6 +701,7 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
                         onSelected: handleItemSelection,
                         onCanceled: () {
                           _removeNextHold();
+                          this._animationController?.forward();
                         },
                         itemBuilder: (BuildContext context) {
                           _holdNext(); // then pause animation
