@@ -678,9 +678,7 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
                 iconTheme: IconThemeData(color: Colors.white),
               ),
               child: Row(
-                  mainAxisAlignment: widget.own
-                      ? MainAxisAlignment.spaceBetween
-                      : MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
                       margin: EdgeInsets.all(5.0),
