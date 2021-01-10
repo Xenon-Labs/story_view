@@ -679,9 +679,12 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
               child: CircularImage(widget.profileImage,
                   height: 25, width: 25, iconSize: 15),
             ),
-            Text(
-              widget.displayName,
-              style: TextStyle(color: Colors.white, fontSize: 15),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 5.0),
+              child: Text(
+                widget.displayName,
+                style: TextStyle(color: Colors.white, fontSize: 15),
+              ),
             )
           ]),
         ),
@@ -696,6 +699,10 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
                       iconColor: Colors.white,
                       child: PopupMenuButton<String>(
                         onSelected: handleItemSelection,
+                        onCanceled: () {
+                          _removeNextHold();
+                          _goForward();
+                        },
                         itemBuilder: (BuildContext context) {
                           _holdNext(); // then pause animation
                           this._animationController?.stop(canceled: false);
