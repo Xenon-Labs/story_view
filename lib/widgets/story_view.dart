@@ -692,7 +692,7 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
                             ),
                             Text(
                               widget.displayName,
-                              style: TextStyle(color: Colors.white, fontSize: ),
+                              style: TextStyle(color: Colors.white, fontSize: 12),
                             )
                           ]),
                     ),
