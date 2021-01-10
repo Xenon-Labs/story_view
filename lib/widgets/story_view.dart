@@ -671,56 +671,47 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
       appBar: AppBar(
         backgroundColor: Colors.black,
         automaticallyImplyLeading: false,
+        title: Container(
+          margin: EdgeInsets.all(5.0),
+          child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+            Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: CircularImage(widget.profileImage,
+                  height: 25, width: 25, iconSize: 15),
+            ),
+            Text(
+              widget.displayName,
+              style: TextStyle(color: Colors.white, fontSize: 15),
+            )
+          ]),
+        ),
         actions: <Widget>[
           Theme(
               data: Theme.of(context).copyWith(
                 cardColor: Colors.white,
                 iconTheme: IconThemeData(color: Colors.white),
               ),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.all(5.0),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: CircularImage(widget.profileImage,
-                                  height: 25, width: 25, iconSize: 15),
-                            ),
-                            Text(
-                              widget.displayName,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            )
-                          ]),
-                    ),
-                    widget.own
-                        ? ListTileTheme(
-                            iconColor: Colors.white,
-                            child: PopupMenuButton<String>(
-                              onSelected: handleItemSelection,
-                              itemBuilder: (BuildContext context) {
-                                _holdNext(); // then pause animation
-                                this
-                                    ._animationController
-                                    ?.stop(canceled: false);
-                                return {'Delete', 'Save'}.map((String choice) {
-                                  return PopupMenuItem<String>(
-                                    height: 15.0,
-                                    value: choice,
-                                    child: Container(
-                                        padding: EdgeInsets.all(10.0),
-                                        child: Text(choice)),
-                                  );
-                                }).toList();
-                              },
-                            ),
-                          )
-                        : Container()
-                  ]))
+              child: widget.own
+                  ? ListTileTheme(
+                      iconColor: Colors.white,
+                      child: PopupMenuButton<String>(
+                        onSelected: handleItemSelection,
+                        itemBuilder: (BuildContext context) {
+                          _holdNext(); // then pause animation
+                          this._animationController?.stop(canceled: false);
+                          return {'Delete', 'Save'}.map((String choice) {
+                            return PopupMenuItem<String>(
+                              height: 15.0,
+                              value: choice,
+                              child: Container(
+                                  padding: EdgeInsets.all(10.0),
+                                  child: Text(choice)),
+                            );
+                          }).toList();
+                        },
+                      ),
+                    )
+                  : Container())
         ],
       ),
       body: Container(
