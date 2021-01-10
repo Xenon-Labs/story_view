@@ -675,7 +675,7 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
           margin: EdgeInsets.all(5.0),
           child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
             Padding(
-              padding: const EdgeInsets.all(2.0),
+              padding: const EdgeInsets.all(10.0),
               child: CircularImage(widget.profileImage,
                   height: 25, width: 25, iconSize: 15),
             ),
