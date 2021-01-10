@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:story_view/widgets/circularImage.dart';
 import 'package:story_view/widgets/circularProgressDialog.dart';
 import 'story_video.dart';
 import 'story_image.dart';
@@ -407,6 +408,12 @@ class StoryView extends StatefulWidget {
   /// Is the story owned by the current user?
   final bool own;
 
+  /// Name of story owner
+  final String displayName;
+
+  /// Image URL of story owner
+  final String profileImage;
+
   /// If you would like to display the story as full-page, then set this to
   /// `false`. But in case you would display this as part of a page (eg. in
   /// a [ListView] or [Column]) then set this to `true`.
@@ -419,6 +426,8 @@ class StoryView extends StatefulWidget {
     @required this.storyItems,
     @required this.controller,
     @required this.own,
+    @required this.displayName,
+    @required this.profileImage,
     this.onComplete,
     this.onStoryShow,
     this.onStoryDelete,
@@ -640,17 +649,17 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
     if (choice == 'Delete') {
       CircularProgressDialog(context, () async {
         widget.onStoryDelete(_currentStory).then((dynamic success) {
-            Navigator.of(context).pop();
-            _removeNextHold();
-            _goForward();
+          Navigator.of(context).pop();
+          _removeNextHold();
+          _goForward();
         });
       });
     } else if (choice == 'Save') {
       CircularProgressDialog(context, () async {
         widget.onStorySave(_currentStory).then((dynamic success) {
-            Navigator.of(context).pop();
-            _removeNextHold();
-            _goForward();
+          Navigator.of(context).pop();
+          _removeNextHold();
+          _goForward();
         });
       });
     }
@@ -659,40 +668,60 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: widget.own
-          ? AppBar(
-              backgroundColor: Colors.black,
-              automaticallyImplyLeading: false,
-              actions: <Widget>[
-                Theme(
-                  data: Theme.of(context).copyWith(
-                    cardColor: Colors.white,
-                    iconTheme: IconThemeData(color: Colors.white),
-                  ),
-                  child: ListTileTheme(
-                    iconColor: Colors.white,
-                    child: PopupMenuButton<String>(
-                      onSelected: handleItemSelection,
-                      itemBuilder: (BuildContext context) {
-                        _holdNext(); // then pause animation
-                        this._animationController?.stop(canceled: false);
-                        return {'Delete', 'Save'}.map((String choice) {
-                          return PopupMenuItem<String>(
-                            height: 15.0,
-                            value: choice,
-                            child: Container(
-                              padding: EdgeInsets.all(10.0),
-                              child: Text(choice)
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        automaticallyImplyLeading: false,
+        actions: <Widget>[
+          Theme(
+              data: Theme.of(context).copyWith(
+                cardColor: Colors.white,
+                iconTheme: IconThemeData(color: Colors.white),
+              ),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.all(5.0),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: CircularImage(widget.profileImage,
+                                  height: 15, width: 15, iconSize: 12),
                             ),
-                          );
-                        }).toList();
-                      },
+                            Text(
+                              widget.displayName,
+                              style: TextStyle(color: Colors.white, fontSize: ),
+                            )
+                          ]),
                     ),
-                  ),
-                )
-              ],
-            )
-          : null,
+                    widget.own
+                        ? ListTileTheme(
+                            iconColor: Colors.white,
+                            child: PopupMenuButton<String>(
+                              onSelected: handleItemSelection,
+                              itemBuilder: (BuildContext context) {
+                                _holdNext(); // then pause animation
+                                this
+                                    ._animationController
+                                    ?.stop(canceled: false);
+                                return {'Delete', 'Save'}.map((String choice) {
+                                  return PopupMenuItem<String>(
+                                    height: 15.0,
+                                    value: choice,
+                                    child: Container(
+                                        padding: EdgeInsets.all(10.0),
+                                        child: Text(choice)),
+                                  );
+                                }).toList();
+                              },
+                            ),
+                          )
+                        : Container()
+                  ]))
+        ],
+      ),
       body: Container(
         color: Colors.white,
         child: Stack(
@@ -829,7 +858,11 @@ class PageBarState extends State<PageBar> {
     super.initState();
 
     int count = widget.pages.length;
-    spacing = count > 15 ? 1 : count > 10 ? 2 : 4;
+    spacing = count > 15
+        ? 1
+        : count > 10
+            ? 2
+            : 4;
 
     widget.animation.addListener(() {
       setState(() {});
@@ -857,7 +890,11 @@ class PageBarState extends State<PageBar> {
             padding: EdgeInsets.only(
                 right: widget.pages.last == it ? 0 : this.spacing),
             child: StoryProgressIndicator(
-              isPlaying(it) ? widget.animation.value : it.shown ? 1 : 0,
+              isPlaying(it)
+                  ? widget.animation.value
+                  : it.shown
+                      ? 1
+                      : 0,
               indicatorHeight:
                   widget.indicatorHeight == IndicatorHeight.large ? 5 : 3,
             ),
