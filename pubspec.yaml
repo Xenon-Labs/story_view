@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_cache_manager: ^2.1.0
-  rxdart: 0.24.0
+  rxdart: 0.25.0
   video_player:
     git:
       url: git://github.com/Xenon-Labs/video_player.git
